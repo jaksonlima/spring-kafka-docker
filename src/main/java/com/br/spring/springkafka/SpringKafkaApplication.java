@@ -72,6 +72,11 @@ public class SpringKafkaApplication {
         @Value("${spring.kafka.bootstrap-servers}")
         private String bootstrapAddress;
 
+        /**
+         * Auto confiuração spring boot
+         *
+         * @link {org.springframework.boot.autoconfigure.kafka.KafkaAutoConfiguration}
+         */
         @Bean
         public KafkaAdmin kafkaAdmin() {
             final var configs = new HashMap<String, Object>();
@@ -79,10 +84,18 @@ public class SpringKafkaApplication {
 
             return new KafkaAdmin(configs);
         }
+    }
 
+    @Configuration
+    public static class KafkaTopic {
         @Bean
         public NewTopic input() {
             return new NewTopic("input", 1, (short) 1);
+        }
+
+        @Bean
+        public NewTopic out() {
+            return new NewTopic("out", 1, (short) 1);
         }
     }
 
