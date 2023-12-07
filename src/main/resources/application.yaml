@@ -1,3 +1,14 @@
 spring:
   kafka:
+    auto-create-topics: false
     bootstrap-servers: localhost:9094
+    pool-timeout: 1_000
+    producers:
+      ack: 0
+    consumers:
+      input:
+        auto-offset-reset: earliest
+        concurrency: 3
+        id: kafka-listener-input
+        topics: input
+        group-id: group-input
